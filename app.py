@@ -26,8 +26,8 @@ async def pa_post(payload):
 @app.route('/pa_ks_wbhr',  methods=['POST'])
 def pa_ks_wbhr():
     payload = request.data
-    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy()) #only for windows
-    # asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy()) #For linux CHANGE before moving the code!
+    # asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy()) #only for windows
+    asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy()) #For linux CHANGE before moving the code!
     resp = asyncio.run(pa_post(payload))
     return resp
 
