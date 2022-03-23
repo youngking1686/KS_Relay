@@ -26,8 +26,8 @@ async def pa_post(payload):
 @app.route('/pa_ks_wbhr',  methods=['POST'])
 def pa_ks_wbhr():
     payload = request.data
-    # asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy()) #only for windows
-    asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy()) #For linux CHANGE before moving the code!
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy()) #only for windows
+    # asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy()) #For linux CHANGE before moving the code!
     resp = asyncio.run(pa_post(payload))
     return resp
 
@@ -37,7 +37,10 @@ def pa_ks_heartbeat():
     for url in webhooks_urls:
         url1 = url + '/ks_check'
         resp = requests.post(url1, data=None)
-        responses.append(resp.json())
+        try:
+            responses.append(resp.json())
+        except:
+            responses.append(f"No response from {url}")
     return jsonify(responses)
 
 @app.route('/')
