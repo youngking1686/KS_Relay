@@ -36,8 +36,8 @@ def pa_ks_heartbeat():
     responses = []
     for url in webhooks_urls:
         url1 = url + '/ks_check'
-        resp = requests.post(url1, data=None)
         try:
+            resp = requests.post(url1, data=None)
             responses.append(resp.json())
         except:
             responses.append(f"No response from {url}")
